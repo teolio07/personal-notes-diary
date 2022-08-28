@@ -51,11 +51,11 @@ const createCommnent = (req,res)=>{
 
 
     try{
-        let name = req.body.name;
+        let title = req.body.title;
         let email = req.body.email;
-        let comment = req.body.comment;
+        let body = req.body.body;
         
-        const saveComment = service.createCommnent(name,email,comment)
+        const saveComment = service.createCommnent(title,email,body)
         saveComment.then((response)=>{ 
             if(response.isBoom == true){
                 return res.status(response.output.payload.statusCode).json(response.output.payload);

@@ -29,7 +29,7 @@ const commentUserSchema = mongoose.Schema({
         
     },
     dateUpdateNote:{
-        timestamps:true
+        type: Date
     }
 
 })
