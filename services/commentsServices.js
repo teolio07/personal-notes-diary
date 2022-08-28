@@ -6,69 +6,69 @@ const boom = require('@hapi/boom');
 
 class commentsService{
 
-    async createCommnent(name,email,comment){
+    async createCommnent(title,email,body){
         try{
             let isEmailExist = await userSchema.findOne({ email }); 
 
             if(!isEmailExist) return (boom.badRequest('Unregistered user')) 
 
             let dataComment = new commentUserSchema(); 
-            dataComment.name = name;
+            dataComment.title = title;
             dataComment.email = email;
-            dataComment.comment = comment;
+            dataComment.body = body;
 
             await dataComment.save();
             return dataComment;
         }
         catch(error){
             console.log(error)
-            return (boom.badImplementation('server error create comment the user'))
+            return (boom.badImplementation('server error create note the user'))
         }
     } 
     
     async readComments(){
-        const comments = await commentUserSchema.find().lean()
+        const notes = await commentUserSchema.find()
         try{
-            if(!comments) return (boom.notFound('Messages not found'))
+            if(!notes) return (boom.notFound('notes not found'))
 
-            return comments;
+            return notes;
         }
         catch(error){
             console.log(error);
-            return (boom.badImplementation('Server error searching messages'))
+            return (boom.badImplementation('Server error searching notes'))
         }
     }
     
-    async updateComment(idComment,newComment){
-        console.log(newComment)
+    async updateComment(idNote,newNote){
+        
         try{
-            let commentById = await commentUserSchema.findById(idComment)
-            if(!commentById) return (boom.notFound('Comment not found'))
-            if(newComment.email != commentById.email) return (boom.badData('no puedes editar este comentario')) 
+            let noteById = await commentUserSchema.findById(idNote)
+            if(!noteById) return (boom.notFound('note not found'))
+            if(newNote.email != noteById.email) return (boom.badData('no puedes editar esta nota')) 
 
-            let updateComment = await commentUserSchema.findByIdAndUpdate(idComment,newComment); 
-            return updateComment;
+            let updateNote= await commentUserSchema.findByIdAndUpdate(idNote,newNote); 
+            return updateNote;
         }
         catch(error){
             console.log(error);
-            return (boom.badImplementation('Server error updating message'))
+            return (boom.badImplementation('Server error updating note'))
            
         }
         
     }
 
-    async deleteComment(idComment,email){
+    async deleteComment(idNote,email){
         try{
-            let commentById = await commentUserSchema.findById(idComment); 
-            if(!commentById) return (boom.notFound('Comment not found'))
-            if(email != commentById.email) return (boom.badData("You can't delete the comment"))
+            let notetById = await commentUserSchema.findById(idNote); 
+            if(!noteById) return (boom.notFound('Comment not found'))
+            if(email != noteById.email) return (boom.badData("You can't delete the note"))
 
-            let commentDelete = await commentUserSchema.findByIdAndDelete(idComment)
-            return commentDelete;
+            let noteDelete = await commentUserSchema.findByIdAndDelete(idNote)
+            return noteDelete;
         }            
         catch(error){
             console.log(error)
-            return (boom.badImplementation('Server error deleting comment'))
+            return (boom.badImplementation('Server error deleting note'))
         }
     }
 }

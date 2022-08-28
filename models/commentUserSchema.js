@@ -2,12 +2,18 @@ const mongoose = require('mongoose');
 
 
 const commentUserSchema = mongoose.Schema({
-    name: {
+    title: {
         type: String,
         required: true,
-        min: 6,
+        min: 1,
         max: 255
     },
+    body:{
+        type: String,
+        required: true,
+        min: 1,
+        max: 255}
+    ,
 
     email: { 
         type: String,
@@ -17,20 +23,13 @@ const commentUserSchema = mongoose.Schema({
 
     },
 
-    comment: {
-        type:String,
-        required:true,
-        min: 6,
-        max: 255
-    },
-
-    dateComment:{
+    dateNote:{
         type: Date,
         default: Date.now
         
     },
-    dateUpdateComment:{
-        type:Date
+    dateUpdateNote:{
+        timestamps:true
     }
 
 })

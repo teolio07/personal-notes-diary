@@ -1,7 +1,7 @@
 const userSchema = require('../models/userSchema');
 
 const createTokens = require('./createToken')
-const tokens = new createTokens;
+const tokens = new createTokens();
 
 const bcrypt = require('bcrypt')
 const boom = require('@hapi/boom')

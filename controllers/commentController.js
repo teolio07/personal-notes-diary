@@ -1,24 +1,24 @@
 const commentsService = require('./../services/commentsServices');
-const service = new commentsService;
+const service = new commentsService();
 const Joi = require('joi')
 
 //validate data for create comments
 const schemaCreateMessage = Joi.object({
-    name: Joi.string().min(3).max(255).required(),
+    title: Joi.string().min(1).max(255).required(),
     email: Joi.string().min(6).max(255).required().email(),
-    comment: Joi.string().min(1).max(255).required()
+    body: Joi.string().min(1).max(255).required()
 })
 
 //validate data for update comments
 const schemaUpdateComment= Joi.object({
-    idComment: Joi.string().min(6).max(255).required(),
+    idNote: Joi.string().min(6).max(255).required(),
     email: Joi.string().min(6).max(255).required().email(),
-    comment: Joi.string().min(1).max(255).required()
+    body: Joi.string().min(1).max(255).required()
 }) 
 
 //validate data fot delete comments 
 const schemaDeleteComment = Joi.object({
-    idComment: Joi.string().min(6).max(255).required(),
+    idNote: Joi.string().min(6).max(255).required(),
     email: Joi.string().min(6).max(255).required().email()
 })
 
@@ -26,8 +26,8 @@ const getComments = (req,res)=>{
     try{
         let readComments = service.readComments()
         readComments.then((response)=>{
-            console.log(response)
-            res.send(response)
+            
+            res.json(response)
         })
         
     
