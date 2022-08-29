@@ -2,6 +2,11 @@ const commentsService = require('./../services/commentsServices');
 const service = new commentsService();
 const Joi = require('joi')
 
+//validate data get notes
+const schemaGetNotes = Joi.object({
+    email:Joi.string().min(6).max(255).required().email()
+});
+
 //validate data for create comments
 const schemaCreateMessage = Joi.object({
     title: Joi.string().min(1).max(255).required(),
@@ -23,8 +28,19 @@ const schemaDeleteComment = Joi.object({
 })
 
 const getComments = (req,res)=>{
+    const {email} = req.params;
+    let validateData = {email:email}
+    const {error} = schemaGetNotes.validate(validateData);
+    if(error){
+        return res.status(400).json(
+            {error: error.details[0].message}
+        )
+    }
+
+    
     try{
-        let readComments = service.readComments()
+
+        let readComments = service.readComments(validateData);
         readComments.then((response)=>{
             
             res.json(response)

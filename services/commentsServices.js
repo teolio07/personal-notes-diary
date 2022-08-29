@@ -26,8 +26,8 @@ class commentsService{
         }
     } 
     
-    async readComments(){
-        const notes = await commentUserSchema.find()
+    async readComments(email){
+        const notes = await commentUserSchema.find(email);
         try{
             if(!notes) return (boom.notFound('notes not found'))
 
