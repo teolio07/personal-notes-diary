@@ -16,6 +16,7 @@ const schemaCreateMessage = Joi.object({
 
 //validate data for update comments
 const schemaUpdateComment= Joi.object({
+    title: Joi.string().min(1).max(255).required(),
     idNote: Joi.string().min(6).max(255).required(),
     email: Joi.string().min(6).max(255).required().email(),
     body: Joi.string().min(1).max(255).required()
@@ -96,15 +97,15 @@ const updateComment = (req,res)=>{
     }
 
     try{
-        let newComment = req.body;
-        let idComment = req.body.idComment;
-        let updateComment = service.updateComment(idComment,newComment);
-        updateComment.then((response)=>{
+        let newNote = req.body;
+        let idNote = req.body.idNote;
+        let updateNote = service.updateComment(idNote,newNote);
+        updateNote.then((response)=>{
             if(response.isBoom == true){
                 return res.status(response.output.statusCode).json(response.output.payload);
             
             }
-            res.json(response)
+            res.statusCode(200).json(response)
             
         })
         
