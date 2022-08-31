@@ -105,7 +105,7 @@ const updateComment = (req,res)=>{
                 return res.status(response.output.statusCode).json(response.output.payload);
             
             }
-            res.statusCode(200).json(response)
+            res.status(200).json(response)
             
         })
         
