@@ -19,17 +19,17 @@ app.use(express.static("public"))
 app.use(express.json())
 
 //cors
-const whitelist = ['http://localhost:3001']
-const options = {
-    origin: (origin, callback)=>{
-        if(whitelist.includes(origin) !== -1){ 
-            callback(null, true); 
-        }else{ 
-            callback(new Error('no permitido'))
-        }
+var whitelist = ['http://example1.com', 'http://example2.com']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
     }
+  }
 }
-app.use(cors(options))
+app.use(cors())
 
 
 
