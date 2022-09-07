@@ -59,7 +59,7 @@ class commentsService{
 
     async deleteComment(idNote,email){
         try{
-            let notetById = await commentUserSchema.findById(idNote); 
+            let noteById = await commentUserSchema.findById(idNote); 
             if(!noteById) return (boom.notFound('Comment not found'))
             if(email != noteById.email) return (boom.badData("You can't delete the note"))
 

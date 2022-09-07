@@ -119,20 +119,19 @@ const updateComment = (req,res)=>{
 
 const deleteComment = (req,res)=>{
     try{
-        const { dataComment } = req.params
-        let data = dataComment.split(',')
-        let getEmail = data[1]
-        let getIdComment = data[0]
-        let validateData = {idComment:getIdComment,email: getEmail}
+        const { idNot, emailUser } = req.params
+        
+
+        let validateData = {idNote:idNot,email: emailUser}
         const { error } = schemaDeleteComment.validate(validateData) 
         if(error) {
             return res.status(400).json( 
                 {error: error.details[0].message}
             )
         }
-        let idComment = validateData.idComment
-        let email = validateData.email
-        let deleteComment = service.deleteComment(idComment, email)
+        let idComment = validateData.idNote;
+        let email = validateData.email;
+        let deleteComment = service.deleteComment(idNot, email)
         deleteComment.then((response)=>{
             if(response.isBoom == true){
                 return res.status(response.output.statusCode).json(response.output.payload);
