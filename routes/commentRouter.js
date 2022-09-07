@@ -5,7 +5,7 @@ const commentRouter = express.Router();
 commentRouter.get('/getNotes/:email', getComments);
 commentRouter.post('/createNote',createCommnent)
 commentRouter.put('/updateNote',updateComment)
-commentRouter.delete('/:idNot/:emailUser',deleteComment)
+commentRouter.delete('deleteNote/:idNot/:emailUser',deleteComment)
 
 module.exports = commentRouter;
 
